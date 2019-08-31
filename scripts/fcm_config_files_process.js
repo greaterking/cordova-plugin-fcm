@@ -19,21 +19,9 @@ fs.ensureDirSync = function (dir) {
 var config = fs.readFileSync('config.xml').toString();
 var name = getValue(config, 'name');
 
-var IOS_DIR = 'platforms/ios';
 var ANDROID_DIR = 'platforms/android';
 
 var PLATFORM = {
-    IOS: {
-        dest: [
-            IOS_DIR + '/' + name + '/Resources/GoogleService-Info.plist',
-            IOS_DIR + '/' + name + '/Resources/Resources/GoogleService-Info.plist'
-        ],
-        src: [
-            'GoogleService-Info.plist',
-            IOS_DIR + '/www/GoogleService-Info.plist',
-            'www/GoogleService-Info.plist'
-        ]
-    },
     ANDROID: {
         dest: [
             ANDROID_DIR + '/google-services.json'
@@ -47,10 +35,6 @@ var PLATFORM = {
     }
 };
 
-// Copy key files to their platform specific folders
-if (directoryExists(IOS_DIR)) {
-    copyKey(PLATFORM.IOS);
-}
 if (directoryExists(ANDROID_DIR)) {
     copyKey(PLATFORM.ANDROID, updateStringsXml)
 }
